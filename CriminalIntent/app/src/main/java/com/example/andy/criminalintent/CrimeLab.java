@@ -44,4 +44,14 @@ public class CrimeLab {
         }
         return null;
     }
+
+    public boolean deleteCrime(UUID id) {
+        for (Crime crime: mCrimes) {
+            if (crime.getId().equals(id)) {
+                mCrimes.remove(crime);
+                return true;
+            }
+        }
+        return false;
+    }
 }
