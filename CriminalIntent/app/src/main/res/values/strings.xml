@@ -16,4 +16,6 @@
     </plurals>
     <string name="delete_button">Delete</string>
     <string name="empty_state_text">Add a crime to begin!</string>
+    <string name="crime_suspect_text">Choose Suspect</string>
+    <string name="crime_report_text">Send Crime Report</string>
 </resources>
