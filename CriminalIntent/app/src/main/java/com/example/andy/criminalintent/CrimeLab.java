@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.andy.criminalintent.database.CrimeBaseHelper;
 import com.example.andy.criminalintent.database.CrimeCursorWrapper;
@@ -76,13 +77,17 @@ public class CrimeLab {
     }
 
     public boolean deleteCrime(UUID id) {
-        /*for (Crime crime: mCrimes) {
-            if (crime.getId().equals(id)) {
-                mCrimes.remove(crime);
-                return true;
-            }
-        }*/
-        return false;
+        try {
+            mDatabase.delete(
+                    CrimeTable.NAME,
+                    CrimeTable.Cols.UUID + " = ? ",
+                    new String[] { id.toString() }
+            );
+            return true;
+        } catch (Exception e) {
+            Log.d("deleteCrime", e.toString());
+            return false;
+        }
     }
 
 
