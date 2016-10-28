@@ -15,4 +15,5 @@
         <item quantity="other">%1s crimes</item>
     </plurals>
     <string name="delete_button">Delete</string>
+    <string name="empty_state_text">Add a crime to begin!</string>
 </resources>
