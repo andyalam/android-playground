@@ -58,6 +58,6 @@ public class Crime {
     }
 
     public void setSuspect(String suspect) {
-        this.mSuspect = suspect;
+        mSuspect = suspect;
     }
 }
