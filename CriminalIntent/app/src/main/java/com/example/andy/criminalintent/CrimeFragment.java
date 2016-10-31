@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
@@ -23,10 +24,14 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
+
+import static android.support.v4.content.ContextCompat.checkSelfPermission;
+
 
 public class CrimeFragment extends Fragment {
     private static final String ARG_CRIM_ID = "crime_id";
@@ -36,6 +41,9 @@ public class CrimeFragment extends Fragment {
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
     private static final int REQUEST_CONTACT = 2;
+    // Request code for READ_CONTACTS. It can be any number > 0.
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+
 
     private Crime mCrime;
     private EditText mTitleField;
@@ -169,9 +177,10 @@ public class CrimeFragment extends Fragment {
         mCallSuspectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // query contacts db for contact
-                // grab phone number
-                // launch implicit intent to dial number
+                // check permissions
+                requestContactPermission();
+
+
             }
         });
 
@@ -261,5 +270,97 @@ public class CrimeFragment extends Fragment {
                 dateString, solvedString, suspect);
 
         return report;
+    }
+
+    /**
+     * Show the contacts in the ListView.
+     */
+    private void requestContactPermission() {
+        // Check the SDK version and whether the permission is already granted or not.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
+            //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overriden method
+        } else {
+            // Android version is lesser than 6.0 or the permission is already granted.
+            // Proceed with rest of code
+            queryContactsDisplayResult();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted
+                requestContactPermission();
+            } else {
+                Toast.makeText(getContext(), "Until you grant the permission, we canot display the names", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void queryContactsDisplayResult() {
+        String contactId;
+        String phoneNumber;
+
+        // query contacts db for contact
+        Uri contactUri = ContactsContract.Data.CONTENT_URI;
+
+        // specify which fields we want the query to return values for
+        String[] queryFields = new String[] {
+                ContactsContract.Contacts._ID
+        };
+
+        String selection = ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME + " = ?";
+        String[] selectionArguments = { mSuspectButton.getText().toString() };
+
+        // perform query, contactUri = "where" clause here
+        Cursor c = getActivity().getContentResolver()
+                .query(contactUri, queryFields, selection, selectionArguments, null);
+        try {
+            if (c.getCount() == 0) {
+                return;
+            }
+
+            c.moveToFirst();
+            contactId = c.getString(0);
+        } finally {
+            c.close();
+        }
+
+
+        // use contactId to query for contact's phone number now
+        // specify which fields we want the query to return values for
+        Uri phoneUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+        String[] queryPhoneFields = new String[] {
+                ContactsContract.CommonDataKinds.Phone.NUMBER
+        };
+
+        String phoneSelection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?";
+        String[] selectionPhoneArguments = { contactId };
+
+        // perform query, contactUri = "where" clause here
+        Cursor phoneC = getActivity().getContentResolver()
+                .query(phoneUri, queryPhoneFields, phoneSelection, selectionPhoneArguments, null);
+
+        try {
+            if (phoneC.getCount() == 0) {
+                return;
+            }
+
+            phoneC.moveToFirst();
+            phoneNumber = phoneC.getString(0);
+        } finally {
+            phoneC.close();
+        }
+
+        if (phoneNumber != "") {
+            mSuspectButton.setText(phoneNumber);
+        } else {
+            mSuspectButton.setText("empty");
+        }
+        Log.d("123", "hit this point3");
+        // launch implicit intent to dial number
     }
 }
