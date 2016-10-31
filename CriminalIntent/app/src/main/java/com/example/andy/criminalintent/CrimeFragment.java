@@ -36,6 +36,7 @@ public class CrimeFragment extends Fragment {
     private Button mTimeButton;
     private CheckBox mSolvedCheckBox;
     private Button mDeleteButton;
+    private Button mReportButton;
 
 
     public static CrimeFragment newInstance(UUID crimeId) {
@@ -128,6 +129,19 @@ public class CrimeFragment extends Fragment {
             }
         });
 
+        mReportButton = (Button) v.findViewById(R.id.crime_report);
+        mReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_TEXT, getCrimeReport());
+                i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.crime_report_subject));
+                i = Intent.createChooser(i, getString(R.string.send_report));
+                startActivity(i);
+            }
+        });
+
         return v;
     }
 
@@ -161,5 +175,29 @@ public class CrimeFragment extends Fragment {
         SimpleDateFormat format = new SimpleDateFormat("hh:mm a");
         String formatted_time = format.format(Date.parse(mCrime.getDate().toString()));
         mTimeButton.setText(formatted_time);
+    }
+
+    private String getCrimeReport() {
+        String solvedString = null;
+        if (mCrime.isSolved()) {
+            solvedString = getString(R.string.crime_report_solved);
+        } else {
+            solvedString = getString(R.string.crime_report_unsolved);
+        }
+
+        String dateFormat = "EEE, MMM dd";
+        String dateString = DateFormat.format(dateFormat, mCrime.getDate()).toString();
+
+        String suspect = mCrime.getSuspect();
+        if (suspect == null) {
+            suspect = getString(R.string.crime_report_no_suspect);
+        } else {
+            suspect = getString(R.string.crime_report_suspect, mCrime.getSuspect());
+        }
+
+        String report = getString(R.string.crime_report, mCrime.getTitle(),
+                dateString, solvedString, suspect);
+
+        return report;
     }
 }
