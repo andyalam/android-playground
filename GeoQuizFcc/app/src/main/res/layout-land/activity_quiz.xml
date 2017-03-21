@@ -29,6 +29,13 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:padding="20dp"/>
+
     <ImageButton
         android:id="@+id/prev_button"
         android:layout_width="wrap_content"

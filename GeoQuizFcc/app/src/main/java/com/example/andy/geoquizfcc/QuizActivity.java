@@ -19,6 +19,7 @@ public class QuizActivity extends AppCompatActivity {
 
     // key for savedInstanceBundle
     private static final String  KEY_INDEX = "index";
+    private static final String KEY_SCORE = "score";
 
     private Button mTrueButton;
     private Button mFalseButton;
@@ -26,8 +27,10 @@ public class QuizActivity extends AppCompatActivity {
     private ImageButton mNextButton;
     private Button mRandomButton;
     private TextView mQuestionTextView;
+    private TextView mScoreTextView;
 
     private int mCurrentIndex = 0;
+    private int mScore = 0;
 
     private Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_ca, false),
@@ -60,6 +63,8 @@ public class QuizActivity extends AppCompatActivity {
 
         if (userPressedTrue == answerIsTrue) {
             messageResId = R.string.correct_toast;
+            mScore++;
+            mScoreTextView.setText("Score: " + mScore);
         } else {
             messageResId = R.string.incorrect_toast;
         }
@@ -104,6 +109,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState() called");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+        savedInstanceState.putInt(KEY_SCORE, mScore);
     }
 
     @Override
@@ -122,6 +128,8 @@ public class QuizActivity extends AppCompatActivity {
                 updateQuestion();
             }
         });
+
+        mScoreTextView = (TextView) findViewById(R.id.score);
 
         mTrueButton = (Button) findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(new View.OnClickListener() {
@@ -172,7 +180,10 @@ public class QuizActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+            mScore = savedInstanceState.getInt(KEY_SCORE, 0);
         }
+
+        mScoreTextView.setText("Score: " + mScore);
 
         updateQuestion();
     }
