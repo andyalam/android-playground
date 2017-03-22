@@ -52,6 +52,8 @@
             android:id="@+id/random_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
             android:text="@string/random_button" />
 
         <ImageButton
@@ -63,6 +65,12 @@
             android:src="@drawable/arrow_right" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/cheat_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cheat_button"/>
 
 
 </LinearLayout>
