@@ -21,6 +21,7 @@ public class QuizActivity extends AppCompatActivity {
     // key for savedInstanceBundle
     private static final String  KEY_INDEX = "index";
     private static final String KEY_SCORE = "score";
+    private static final String KEY_IS_CHEATER = "cheater";
     private static final int REQUEST_CODE_CHEAT = 1;
 
     private Button mTrueButton;
@@ -73,6 +74,8 @@ public class QuizActivity extends AppCompatActivity {
             mScoreTextView.setText("Score: " + mScore);
         } else {
             messageResId = R.string.incorrect_toast;
+            mScore--;
+            mScoreTextView.setText("Score: " + mScore);
         }
 
         Toast t = Toast.makeText(this, messageResId, Toast.LENGTH_SHORT);
@@ -116,6 +119,7 @@ public class QuizActivity extends AppCompatActivity {
         Log.i(TAG, "onSaveInstanceState() called");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
         savedInstanceState.putInt(KEY_SCORE, mScore);
+        savedInstanceState.putBoolean(KEY_IS_CHEATER, mIsCheater);
     }
 
     @Override
@@ -213,6 +217,7 @@ public class QuizActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
             mScore = savedInstanceState.getInt(KEY_SCORE, 0);
+            mIsCheater = savedInstanceState.getBoolean(KEY_IS_CHEATER, false);
         }
 
         mScoreTextView.setText("Score: " + mScore);

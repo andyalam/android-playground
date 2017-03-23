@@ -12,12 +12,14 @@ import org.w3c.dom.Text;
 
 public class CheatActivity extends AppCompatActivity {
 
+    private static final String KEY_HAS_CHEATED = "KEY_HAS_CHEATED";
     private static final String EXTRA_ANSWER_IS_TRUE = "com.example.andy.geoquizfcc.answer_is_true";
     private static final String EXTRA_ANSWER_SHOWN = "com.example.andy.geoquizfcc.answer_shown";
 
     private TextView mAnswerTextView;
     private Button mShowAnswerButton;
     private boolean mAnswerIsTrue;
+    private boolean mHasCheated;
 
     public static Intent newIntent(Context context, boolean answerIsTrue) {
         Intent i = new Intent(context, CheatActivity.class);
@@ -36,21 +38,37 @@ public class CheatActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putBoolean(KEY_HAS_CHEATED, mHasCheated);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
+
+        if (savedInstanceState != null) {
+            mHasCheated = savedInstanceState.getBoolean(KEY_HAS_CHEATED);
+        }
+
+        setAnswerShownResult(mHasCheated);
 
         mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
 
 
         mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
+        if (mHasCheated) {
+            mAnswerTextView.setText(mAnswerIsTrue ? "True" : "False");
+        }
 
         mShowAnswerButton = (Button) findViewById(R.id.show_answer_button);
         mShowAnswerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAnswerTextView.setText(mAnswerIsTrue ? R.string.true_button : R.string.false_button);
-                setAnswerShownResult(true);
+                mHasCheated = true;
+                setAnswerShownResult(mHasCheated);
             }
         });
     }
