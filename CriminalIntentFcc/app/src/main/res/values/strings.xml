@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CriminalIntentFcc</string>
+    <string name="crime_title_label">Title</string>
+    <string name="crime_title_hint">Enter a title for the crime.</string>
+    <string name="crime_details_label">Details</string>
+    <string name="crime_solved_label">Solved</string>
+    <string-array name="severity_array">
+        <item>Misdemeanor</item>
+        <item>Felony</item>
+        <item>War crime</item>
+    </string-array>
+</resources>
