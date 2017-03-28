@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">GeoQuizFcc</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+    <string name="prev_button">Prev</string>
+    <string name="random_button">Random</string>
+    <string name="next_button">Next</string>
+    <string name="correct_toast">You Got It</string>
+    <string name="incorrect_toast">Try Again!</string>
+    <string name="question_ca">Las Vegas is located in California.</string>
+    <string name="question_sf">San Francisco is in SoCal.</string>
+    <string name="question_la">Los Angeles is in SoCal.</string>
+    <string name="question_sd">San Diego is close to the Mexico border.</string>
+    <string name="warning_text">Are you absolutely sure you really want to do this?</string>
+    <string name="show_answer_button">Show Answer</string>
+    <string name="cheat_button">Cheat</string>
+    <string name="judgement_toast">Cheaters never prosper.</string>
+</resources>

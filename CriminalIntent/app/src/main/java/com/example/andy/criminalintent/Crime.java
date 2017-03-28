@@ -1,24 +1,32 @@
-package com.example.andy.criminalintentfcc;
+package com.example.andy.criminalintent;
 
 
 import java.util.Date;
 import java.util.UUID;
 
 public class Crime {
-
     private UUID mId;
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
-    private String mSeverity;
+    private String mSuspect;
 
     public Crime() {
         mId = UUID.randomUUID();
         mDate = new Date();
     }
 
+    public Crime(UUID id) {
+        mId = id;
+        mDate = new Date();
+    }
+
     public UUID getId() {
         return mId;
+    }
+
+    public void setId(UUID id) {
+        mId = id;
     }
 
     public String getTitle() {
@@ -45,12 +53,11 @@ public class Crime {
         mSolved = solved;
     }
 
-    public String getSeverity() {
-        return mSeverity;
+    public String getSuspect() {
+        return mSuspect;
     }
 
-    public void setSeverity(String mSeverity) {
-        this.mSeverity = mSeverity;
+    public void setSuspect(String suspect) {
+        mSuspect = suspect;
     }
-
 }
