@@ -18,7 +18,7 @@ public class CrimeLab {
         // temp test data - remove later
         for (int i = 0; i < 100; i++) {
             Crime c = new Crime();
-            c.setTitle("Crime #" + i+1);
+            c.setTitle("Crime #" + (i+1));
             c.setSolved(i % 2 == 0);
             mCrimes.add(c);
         }
