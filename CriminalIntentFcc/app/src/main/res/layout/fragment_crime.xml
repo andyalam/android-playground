@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:weightSum="1.0">
         <CheckBox
-            android:id="@+id/crime_solved"
+            android:id="@+id/list_item_crime_solved"
             android:layout_weight=".5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
