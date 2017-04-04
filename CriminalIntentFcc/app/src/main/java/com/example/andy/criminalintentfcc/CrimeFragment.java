@@ -98,6 +98,11 @@ public class CrimeFragment extends Fragment {
 
             }
         });
+        String initSeverity = mCrime.getSeverity();
+        if (!initSeverity.equals(null)) {
+            int spinnerPosition = adapter.getPosition(initSeverity);
+            mSeveritySpinner.setSelection(spinnerPosition);
+        }
 
         return v;
     }

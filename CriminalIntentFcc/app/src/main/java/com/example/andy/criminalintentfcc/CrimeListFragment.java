@@ -26,6 +26,7 @@ public class CrimeListFragment extends Fragment {
         private TextView mTitleTextView;
         private TextView mDateTextView;
         private ImageView mSolvedImageView;
+        private TextView mSeverityTextView;
 
         private Crime mCrime;
 
@@ -38,6 +39,7 @@ public class CrimeListFragment extends Fragment {
             mDateTextView = (TextView) itemView.findViewById(R.id.list_item_crime_date_text_view);
             //mSolvedCheckBox = (CheckBox) itemView.findViewById(R.id.list_item_crime_solved_check_box);
             mSolvedImageView = (ImageView) itemView.findViewById(R.id.list_item_crime_solved);
+            mSeverityTextView = (TextView) itemView.findViewById(R.id.list_item_severity_text_view);
         }
 
         public void bindCrime(Crime crime) {
@@ -46,6 +48,7 @@ public class CrimeListFragment extends Fragment {
             mDateTextView.setText(mCrime.getDate().toString());
             //mSolvedCheckBox.setChecked(mCrime.isSolved());
             mSolvedImageView.setVisibility( mCrime.isSolved() ? View.VISIBLE : View.GONE );
+            mSeverityTextView.setText(mCrime.getSeverity());
         }
 
         @Override

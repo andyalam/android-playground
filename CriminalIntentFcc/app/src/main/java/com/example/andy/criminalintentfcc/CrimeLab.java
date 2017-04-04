@@ -20,6 +20,7 @@ public class CrimeLab {
             Crime c = new Crime();
             c.setTitle("Crime #" + (i+1));
             c.setSolved(i % 2 == 0);
+            c.setSeverity("Misdemeanor");
             mCrimes.add(c);
         }
         // end test data - remove later
