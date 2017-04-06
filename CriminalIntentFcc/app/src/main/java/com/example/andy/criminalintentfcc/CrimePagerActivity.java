@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +21,8 @@ public class CrimePagerActivity extends FragmentActivity {
             "com.example.andy.criminalintentfcc.crime_id";
 
     private ViewPager mViewPager;
+    private Button mViewPagerFirstButton;
+    private Button mViewPagerLastButton;
     private List<Crime> mCrimes;
 
     public static Intent newIntent(Context packageContext, UUID crimeId) {
@@ -57,6 +61,24 @@ public class CrimePagerActivity extends FragmentActivity {
                 break;
             }
         }
+
+        mViewPagerFirstButton = (Button) findViewById(R.id.activity_crime_pager_first_button);
+        mViewPagerFirstButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(0);
+            }
+        });
+
+        mViewPagerLastButton = (Button) findViewById(R.id.activity_crime_pager_last_button);
+        mViewPagerLastButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setCurrentItem(mCrimes.size() - 1);
+            }
+        });
+
+
 
     }
 }
