@@ -16,7 +16,7 @@ public class CrimeLab {
         mCrimes = new ArrayList<>();
 
         // temp test data - remove later
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             Crime c = new Crime();
             c.setTitle("Crime #" + (i+1));
             c.setSolved(i % 2 == 0);
@@ -44,6 +44,20 @@ public class CrimeLab {
             }
         }
         return null;
+    }
+
+    public void addCrime(Crime c) {
+        mCrimes.add(c);
+    }
+
+    public boolean deleteCrime(UUID id) {
+        for (Crime crime: mCrimes) {
+            if (crime.getId().equals(id)) {
+                mCrimes.remove(crime);
+                return true;
+            }
+        }
+        return false;
     }
 
 }

@@ -33,6 +33,7 @@ public class CrimeFragment extends Fragment {
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
     private Spinner mSeveritySpinner;
+    private Button mDeleteButton;
 
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
@@ -125,6 +126,16 @@ public class CrimeFragment extends Fragment {
 
             }
         });
+
+        mDeleteButton = (Button) v.findViewById(R.id.crime_delete_button);
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CrimeLab.get(getActivity()).deleteCrime(mCrime.getId());
+                getActivity().finish();
+            }
+        });
+
         String initSeverity = mCrime.getSeverity();
         if (!initSeverity.equals(null)) {
             int spinnerPosition = adapter.getPosition(initSeverity);
