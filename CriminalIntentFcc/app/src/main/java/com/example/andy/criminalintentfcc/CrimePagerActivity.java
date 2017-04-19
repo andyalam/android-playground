@@ -9,6 +9,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -30,6 +33,20 @@ public class CrimePagerActivity extends FragmentActivity {
         intent.putExtra(EXTRA_CRIME_ID, crimeId);
         return intent;
     }
+
+    /*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.fragment_crime, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+    */
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

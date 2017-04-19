@@ -13,9 +13,13 @@ public class Crime {
     private String mSeverity;
 
     public Crime() {
-        mId = UUID.randomUUID();
+        this(UUID.randomUUID(), "Misdemeanor");
+    }
+
+    public Crime(UUID id, String severity) {
+        mId = id;
         mDate = new Date();
-        mSeverity = "Misdemeanor";
+        mSeverity = severity;
     }
 
     public UUID getId() {
