@@ -25,13 +25,6 @@ public class CrimeLab {
     private CrimeLab(Context context) {
         mContext = context.getApplicationContext();
         mDatabase = new CrimeBaseHelper(mContext).getWritableDatabase();
-        /*for (int i = 0; i < 20; i++) {
-            Crime c = new Crime();
-            c.setTitle("Crime #" + (i+1));
-            c.setSolved(i % 2 == 0);
-            c.setSeverity("Misdemeanor");
-            mCrimes.add(c);
-        }*/
     }
 
     public static CrimeLab get(Context context) {
