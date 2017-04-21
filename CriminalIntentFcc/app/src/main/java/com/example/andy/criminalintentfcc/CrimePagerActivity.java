@@ -34,7 +34,6 @@ public class CrimePagerActivity extends FragmentActivity {
         return intent;
     }
 
-    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.fragment_crime, menu);
@@ -45,7 +44,6 @@ public class CrimePagerActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
-    */
 
 
     @Override
